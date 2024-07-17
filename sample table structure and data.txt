@@ -1,0 +1,40 @@
+table roles:
+id  | name
+1   | admin_ho
+2   | man_power
+3   | service_advisor
+4   | mekanik
+
+table users:
+id  | name  | email | password | role_id
+1   | admin | admin@gmail | admin | 1
+2   | man_power | user1@gmail | user1 | 2
+3   | service_advisor | user2@gmail | user2 | 3
+4   | mekanik | user3@gmail | user3 | 4
+
+table jenis_kerusakan:
+id  | nama_kerusakan    | saran | manfaat
+1  | kerusakan1 | saran1 | manfaat1
+2  | kerusakan2 | saran2 | manfaat2
+3  | kerusakan3 | saran3 | manfaat3
+4  | kerusakan4 | saran4 | manfaat4
+
+table service:
+id  | id_service    | id_user | accepted | status_pekerjaan
+1   | SER20240717001001 | 2 | true | 'sedang di kerjakan'
+2   | SER20240717001002 | 2 | true | 'selesai'
+3   | SER20240717001003 | 2 | true | 'selesai'
+4   | SER20240717001004 | 2 | true | 'sedang di kerjakan'
+
+table service_detail:
+id  | id_service    | id_jenis_kerusakan | foto_before | foto_after
+1   | SER20240717001001 | 1 | 'foto1_before' |
+2   | SER20240717001001 | 2 | 'foto2_before' |
+3   | SER20240717001001 | 3 | 'foto3_before' |
+4   | SER20240717001002 | 1 | 'foto4_before' | 'foto4_after'
+5   | SER20240717001002 | 2 | 'foto5_before' | 'foto5_after'
+6   | SER20240717001002 | 3 | 'foto6_before' | 'foto6_after'
+7   | SER20240717001003 | 2 | 'foto7_before' | 'foto7_after'
+8   | SER20240717001004 | 1 | 'foto8_before' |
+9   | SER20240717001004 | 2 | 'foto9_before' |
+10   | SER20240717001004 | 3 | 'foto10_before' |
