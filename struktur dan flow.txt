@@ -21,23 +21,23 @@ saran String
 manfaat String
 
 
-table gambar_service:
-id Int PK
-id_service Int FK -> service.id
-foto_before String
-foto_after String
-created_at DateTime
-updated_at DateTime
-
 table service:
 id Int PK
+id_service String
 id_user Int FK -> user.id
-id_jenis_kerusakan Int FK -> jenis_kerusakan.id
 acceped Boolean
 status_pekerjaan String
 
 acceped: true, false
 status_pekerjaan: 'sedang di kerjakan', 'selesai'
+
+table service_detail:
+id Int PK
+id_service String
+id_jenis_kerusakan Int FK -> jenis_kerusakan.id
+foto_before String
+foto_after String
+
 
 flow service:
 1. data form service di isi oleh Man Power,
