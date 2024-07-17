@@ -1,0 +1,60 @@
+table user:
+id Int PK
+name String
+email String
+password String
+role Int FK -> role.id
+created_at DateTime
+updated_at DateTime
+
+
+table role:
+id Int PK
+name String
+
+role: HO (head office), Man Power, SA (service advisor)
+
+table jenis_kerusakan:
+id Int PK
+nama_kerusakan String
+saran String
+manfaat String
+
+
+table gambar_service:
+id Int PK
+id_service Int FK -> service.id
+foto_before String
+foto_after String
+created_at DateTime
+updated_at DateTime
+
+table service:
+id Int PK
+id_user Int FK -> user.id
+id_jenis_kerusakan Int FK -> jenis_kerusakan.id
+acceped Boolean
+status_pekerjaan String
+
+acceped: true, false
+status_pekerjaan: 'sedang di kerjakan', 'selesai'
+
+flow service:
+1. data form service di isi oleh Man Power,
+2. beberapa form sudah terisi oleh data Man Power
+3. Man Power memilih jenis kerusakan (bisa lebih dari 1 kerusakan):
+    - menampilkan saran dari jenis kerusakan yang dipilih
+    - menampilkan manfaat dari jenis kerusakan yang dipilih
+4. Man Power mengupload foto sebelum service, jumlah form fotonya sesuai dengan jumlah jenis kerusakan yang dipilih
+5. hasil form nanti akan di print oleh Man Power
+6. menunggu konfirmasi dari customer atau SA
+7. jika customer atau SA sudah konfirmasi, maka acceped = true. jika tidak, maka acceped = false dan hapus data service tersebut
+8. atau customer bisa memilih untuk jenis kerusakan nya, bisa di tambahkan atau di hapus juga
+9. jika acceped = true, maka status_pekerjaan = 'sedang di kerjakan'
+10. jika pekerjaan sudah selesai:
+    - Man Power mengupload foto setelah service
+    - Man Power mengisi data SA
+    - menampilkan manfaat dari jenis kerusakan yang dipilih
+    - status_pekerjaan = 'selesai'
+11. jika status_pekerjaan = 'selesai', maka data service tersebut tidak bisa di edit lagi
+12. print data service tersebut
