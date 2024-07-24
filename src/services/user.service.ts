@@ -7,4 +7,8 @@ const createUserService = async (
   return await UserDal.createUser(payload);
 };
 
-export { createUserService };
+const getAllUsersService = async (): Promise<any[]> => {
+  return await UserDal.getAllUsers();
+}
+
+export { createUserService, getAllUsersService };

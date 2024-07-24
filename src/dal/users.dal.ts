@@ -42,4 +42,29 @@ const createUser = async (
   }
 };
 
-export { createUser };
+const getAllUsers = async (): Promise<any[]> => {
+  try {
+    const users = await prisma.user.findMany({
+      include: {
+        role: {
+          select: {
+            name: true,
+          },
+        },
+      }
+    });
+
+    // destructuring user object
+    const response = users.map((user) => {
+      const { id, password, created_at, updated_at, role_id, ...rest } = user;
+      return { ...rest, role: user.role.name };
+    });
+
+    return response;
+  } catch (error) {
+    console.log(`Get all users failed: ${error}`);
+    return [];
+  }
+}
+
+export { createUser, getAllUsers };

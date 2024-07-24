@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { createUserSchema } from "../helpers/validation/user.validation";
 import { ResponseHelper } from "../helpers/response/response.helper";
-import { createUserService } from "../services/user.service";
+import { createUserService, getAllUsersService } from "../services/user.service";
 
 class UsersController {
   // create a new user
@@ -27,7 +27,14 @@ class UsersController {
   };
 
   // get all users
-  getAllUsers = async (req: Request, res: Response) => {};
+  getAllUsers = async (req: Request, res: Response) => {
+    const users = await getAllUsersService();
+    if (users.length > 0) {
+      res.json(ResponseHelper.successData(users, 200));
+    } else {
+      res.json(ResponseHelper.errorMessage("Get all users failed", 400));
+    }
+  };
 
   // get user by id
   getUserById = async (req: Request, res: Response) => {};
