@@ -8,6 +8,7 @@ interface IUser {
 interface IUserOutput {
   status: boolean;
   message: string;
+  data?: any;
 }
 
 export type { IUser, IUserOutput };
