@@ -23,13 +23,19 @@ manfaat String
 
 table service:
 id Int PK
+tanggal_service DateTime
 id_service String
 id_user Int FK -> user.id
+nama_pelanggan String
+nomor_kendaraan String
+tipe_bodi String
+merk_mobil String
 acceped Boolean
 status_pekerjaan String
 
 acceped: true, false
 status_pekerjaan: 'sedang di kerjakan', 'selesai'
+tipe_bodi: MPV, Hatchback, SUV, Crossover, Pickup Truk, Sedan, Minivan, Van, Coupe, Wagon, MUV, Station Wagon, Convertible, Commercial
 
 table service_detail:
 id Int PK
