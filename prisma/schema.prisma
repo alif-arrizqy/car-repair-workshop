@@ -42,8 +42,13 @@ model jenis_kerusakan {
 
 model service {
   id                Int      @default(autoincrement()) @id
+  tanggal_service   DateTime
   id_service        String
   id_user           Int
+  nama_pelanggan    String
+  nomor_kendaraan   String
+  tipe_bodi         String
+  merk_mobil        String
   accepted          Boolean
   status_pekerjaan  String
   created_at        DateTime @default(now())
