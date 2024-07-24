@@ -8,7 +8,7 @@ const createUser = async (
   try {
     const { name, email, password, role_id } = payload;
 
-    // check if user already exists
+    // check if email already exists
     const isExist = await prisma.user.findFirst({
       where: {
         email: email,
@@ -34,7 +34,7 @@ const createUser = async (
       });
       return { status: true, message: "User created successfully" };
     } else {
-      return { status: false, message: "User already exists" };
+      return { status: false, message: "Email has been registered" };
     }
   } catch (error) {
     console.log(`Create user failed: ${error}`);
