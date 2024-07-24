@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { createUserSchema } from "../helpers/validation/user.validation";
 import { ResponseHelper } from "../helpers/response/response.helper";
-import { createUserService, getAllUsersService } from "../services/user.service";
+import * as userService from "../services/user.service";
 
 class UsersController {
   // create a new user
@@ -10,7 +10,7 @@ class UsersController {
     const parsed = createUserSchema.safeParse(req.body);
     if (parsed.success) {
       // create user service
-      const user = await createUserService(parsed.data);
+      const user = await userService.createUserService(parsed.data);
       if (user.status) {
         console.log(`Create user success: ${user.message}`);
         res.json(ResponseHelper.successMessage(user.message, 201));
@@ -28,7 +28,7 @@ class UsersController {
 
   // get all users
   getAllUsers = async (req: Request, res: Response) => {
-    const users = await getAllUsersService();
+    const users = await userService.getAllUsersService();
     if (users.length > 0) {
       res.json(ResponseHelper.successData(users, 200));
     } else {
