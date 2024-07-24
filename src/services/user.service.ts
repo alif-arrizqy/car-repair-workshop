@@ -9,6 +9,12 @@ const createUserService = async (
 
 const getAllUsersService = async (): Promise<any[]> => {
   return await UserDal.getAllUsers();
-}
+};
 
-export { createUserService, getAllUsersService };
+const getUserByIdService = async (
+  id: number
+): Promise<UserInterface.IUserOutput> => {
+  return await UserDal.getUserById(id);
+};
+
+export { createUserService, getAllUsersService, getUserByIdService };

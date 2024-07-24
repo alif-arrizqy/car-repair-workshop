@@ -37,7 +37,17 @@ class UsersController {
   };
 
   // get user by id
-  getUserById = async (req: Request, res: Response) => {};
+  getUserById = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+
+    // get user by id service
+    const user = await userService.getUserByIdService(id);
+    if (user.status) {
+      res.json(ResponseHelper.successData(user.data, 200));
+    } else {
+      res.json(ResponseHelper.errorMessage(user.message, 400));
+    }
+  };
 
   // update user by id
   updateUser = async (req: Request, res: Response) => {};

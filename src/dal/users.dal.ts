@@ -51,7 +51,7 @@ const getAllUsers = async (): Promise<any[]> => {
             name: true,
           },
         },
-      }
+      },
     });
 
     // destructuring user object
@@ -65,6 +65,37 @@ const getAllUsers = async (): Promise<any[]> => {
     console.log(`Get all users failed: ${error}`);
     return [];
   }
-}
+};
 
-export { createUser, getAllUsers };
+const getUserById = async (id: number): Promise<UserInterface.IUserOutput> => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        role: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+
+    if (user) {
+      const { id, password, created_at, updated_at, role_id, ...rest } = user;
+      return {
+        status: true,
+        message: "User is found",
+        data: { ...rest, role: user.role.name },
+      };
+    } else {
+      return { status: false, message: "User not found" };
+    }
+  } catch (error) {
+    console.log(`Get user by id failed: ${error}`);
+    return { status: false, message: "Get user by id failed" };
+  }
+};
+
+export { createUser, getAllUsers, getUserById };
