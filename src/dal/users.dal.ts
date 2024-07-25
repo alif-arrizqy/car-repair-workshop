@@ -103,6 +103,21 @@ const getUserById = async (id: string): Promise<UserInterface.IOutput> => {
   }
 };
 
+const getUserByEmail = async (email: string): Promise<UserInterface.IOutput> => {
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        email: email,
+      },
+      select: { email: true, id: true },
+    });
+    return { status: true, message: "User is found", data: user };
+  } catch (error) {
+    console.log(`Get user by email failed: ${error}`);
+    return { status: false, message: "Email is not found" };
+  }
+};
+
 const updateUser = async (
   id: string,
   payload: UserInterface.IUpdateUser
@@ -165,4 +180,11 @@ const deleteUser = async (id: string): Promise<UserInterface.IOutput> => {
   }
 }
 
-export { createUser, getAllUsers, getUserById, updateUser, deleteUser };
+export {
+  createUser,
+  getAllUsers,
+  getUserById,
+  getUserByEmail,
+  updateUser,
+  deleteUser,
+};
