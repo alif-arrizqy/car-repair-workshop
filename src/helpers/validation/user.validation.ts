@@ -7,4 +7,10 @@ const createUserSchema = z.object({
   role_id: z.number().int(),
 });
 
-export { createUserSchema };
+const updateUserSchema = z.object({
+  name: z.string().optional(),
+  email: z.string().email().optional(),
+  role_id: z.number().int().optional(),
+});
+
+export { createUserSchema, updateUserSchema };
