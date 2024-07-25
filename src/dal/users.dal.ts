@@ -61,7 +61,7 @@ const getAllUsers = async (): Promise<any[]> => {
 
     // destructuring user object
     const response = users.map((user) => {
-      const { id, password, created_at, updated_at, role_id, ...rest } = user;
+      const { password, created_at, updated_at, role_id, ...rest } = user;
       return { ...rest, role: user.role.name };
     });
 
