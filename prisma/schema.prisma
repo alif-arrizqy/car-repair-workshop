@@ -17,34 +17,33 @@ datasource db {
 model role {
   id        Int      @default(autoincrement()) @id
   name      String
-  users    user[]
+  users     user[]
 }
 
 model user {
-  id        Int      @default(autoincrement()) @id
+  id        String   @id @db.Uuid
   name      String
   email     String
   password  String
-  role_id      Int
+  role_id   Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   role      role     @relation(fields: [role_id], references: [id])
-  service service[]
+  service   service[]
 }
 
 model jenis_kerusakan {
-  id          Int      @default(autoincrement()) @id
-  nama_kerusakan String
-  saran          String
-  manfaat        String
-  service_detail service_detail[]
+  id               Int      @default(autoincrement()) @id
+  nama_kerusakan   String
+  saran            Json
+  manfaat          Json
+  service_detail   service_detail[]
 }
 
 model service {
-  id                Int      @default(autoincrement()) @id
+  id_service        String   @id @db.Uuid
   tanggal_service   DateTime
-  id_service        String
-  id_user           Int
+  id_user           String   @db.Uuid
   nama_pelanggan    String
   nomor_kendaraan   String
   tipe_bodi         String
@@ -58,7 +57,7 @@ model service {
 
 model service_detail {
   id                  Int      @default(autoincrement()) @id
-  id_service          String
+  id_service          String   @db.Uuid
   id_jenis_kerusakan  Int
   foto_before         String
   foto_after          String
