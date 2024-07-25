@@ -5,7 +5,7 @@ import * as userService from "../services/user.service";
 
 class UsersController {
   // create a new user
-  createUser = async (req: Request, res: Response) => {
+  static createUser = async (req: Request, res: Response) => {
     // create user schema validation
     const parsed = createUserSchema.safeParse(req.body);
     if (parsed.success) {
@@ -27,7 +27,7 @@ class UsersController {
   };
 
   // get all users
-  getAllUsers = async (req: Request, res: Response) => {
+  static getAllUsers = async (req: Request, res: Response) => {
     const users = await userService.getAllUsersService();
     if (users.length > 0) {
       res.json(ResponseHelper.successData(users, 200));
@@ -37,7 +37,7 @@ class UsersController {
   };
 
   // get user by id
-  getUserById = async (req: Request, res: Response) => {
+  static getUserById = async (req: Request, res: Response) => {
     const id: string = req.params.id;
 
     // get user by id service
@@ -50,7 +50,7 @@ class UsersController {
   };
 
   // update user by id
-  updateUser = async (req: Request, res: Response) => {
+  static updateUser = async (req: Request, res: Response) => {
     const id: string = req.params.id;
     
     // update user schema validation
@@ -74,7 +74,7 @@ class UsersController {
   };
 
   // delete user by id
-  deleteUser = async (req: Request, res: Response) => {
+  static deleteUser = async (req: Request, res: Response) => {
     const id: string = req.params.id;
 
     // delete user service

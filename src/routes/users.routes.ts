@@ -2,19 +2,19 @@ import { Router } from "express";
 import UsersController from "../controllers/users.controller";
 
 class UserRoutes {
-  router = Router();
-  controller = new UsersController();
+  router: Router;
 
   constructor() {
+    this.router = Router();
     this.initializeRoutes();
   }
 
   initializeRoutes() {
-    this.router.get("/", this.controller.getAllUsers);
-    this.router.get("/:id", this.controller.getUserById);
-    this.router.post("/", this.controller.createUser);
-    this.router.put("/:id", this.controller.updateUser);
-    this.router.delete("/:id", this.controller.deleteUser);
+    this.router.get("/", UsersController.getAllUsers);
+    this.router.get("/:id", UsersController.getUserById);
+    this.router.post("/", UsersController.createUser);
+    this.router.put("/:id", UsersController.updateUser);
+    this.router.delete("/:id", UsersController.deleteUser);
   }
 }
 
