@@ -1,11 +1,12 @@
 import { prisma } from "../app";
 import * as UserInterface from "../interfaces/user.interface";
+import type { IResponse } from "../interfaces/common.interface";
 import { v7 as uuidv7 } from "uuid";
 
 // create a new user
 const createUser = async (
   payload: UserInterface.ICreateUser
-): Promise<UserInterface.IOutput> => {
+): Promise<IResponse> => {
   try {
     const { name, email, password, role_id } = payload;
 
@@ -72,7 +73,7 @@ const getAllUsers = async (): Promise<any[]> => {
   }
 };
 
-const getUserById = async (id: string): Promise<UserInterface.IOutput> => {
+const getUserById = async (id: string): Promise<IResponse> => {
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -103,7 +104,7 @@ const getUserById = async (id: string): Promise<UserInterface.IOutput> => {
   }
 };
 
-const getUserByEmail = async (email: string): Promise<UserInterface.IOutput> => {
+const getUserByEmail = async (email: string): Promise<IResponse> => {
   try {
     const user = await prisma.user.findFirst({
       where: {
@@ -121,7 +122,7 @@ const getUserByEmail = async (email: string): Promise<UserInterface.IOutput> => 
 const updateUser = async (
   id: string,
   payload: UserInterface.IUpdateUser
-): Promise<UserInterface.IOutput> => {
+): Promise<IResponse> => {
   try {
     const { name, email, role_id } = payload;
 
@@ -154,7 +155,7 @@ const updateUser = async (
   }
 };
 
-const deleteUser = async (id: string): Promise<UserInterface.IOutput> => {
+const deleteUser = async (id: string): Promise<IResponse> => {
   try {
     // check if user exists
     const user = await prisma.user.findUnique({

@@ -1,8 +1,8 @@
 import { prisma } from "../app";
-import * as UserInterface from "../interfaces/user.interface";
+import type { IResponse } from "../interfaces/common.interface";
 
 // change password
-const changePassword = async (payload: any): Promise<UserInterface.IOutput> => {
+const changePassword = async (payload: any): Promise<IResponse> => {
   try {
     const { id, newPassword } = payload;
 
