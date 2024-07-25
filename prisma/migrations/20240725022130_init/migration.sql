@@ -8,7 +8,7 @@ CREATE TABLE "role" (
 
 -- CreateTable
 CREATE TABLE "user" (
-    "id" SERIAL NOT NULL,
+    "id" UUID NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
@@ -31,21 +31,25 @@ CREATE TABLE "jenis_kerusakan" (
 
 -- CreateTable
 CREATE TABLE "service" (
-    "id" SERIAL NOT NULL,
-    "id_service" TEXT NOT NULL,
-    "id_user" INTEGER NOT NULL,
+    "id_service" UUID NOT NULL,
+    "tanggal_service" TIMESTAMP(3) NOT NULL,
+    "id_user" UUID NOT NULL,
+    "nama_pelanggan" TEXT NOT NULL,
+    "nomor_kendaraan" TEXT NOT NULL,
+    "tipe_bodi" TEXT NOT NULL,
+    "merk_mobil" TEXT NOT NULL,
     "accepted" BOOLEAN NOT NULL,
     "status_pekerjaan" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "service_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "service_pkey" PRIMARY KEY ("id_service")
 );
 
 -- CreateTable
 CREATE TABLE "service_detail" (
     "id" SERIAL NOT NULL,
-    "id_service" TEXT NOT NULL,
+    "id_service" UUID NOT NULL,
     "id_jenis_kerusakan" INTEGER NOT NULL,
     "foto_before" TEXT NOT NULL,
     "foto_after" TEXT NOT NULL,
