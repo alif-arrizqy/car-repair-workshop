@@ -88,7 +88,7 @@ const getUserById = async (id: string): Promise<UserInterface.IUserOutput> => {
     });
 
     if (user) {
-      const { id, password, created_at, updated_at, role_id, ...rest } = user;
+      const { password, created_at, updated_at, role_id, ...rest } = user;
       return {
         status: true,
         message: "User is found",
