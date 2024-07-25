@@ -1,7 +1,7 @@
-import type { IOutput } from "../interfaces/user.interface";
 import * as PasswordDal from "../dal/password.dal";
+import type { IResponse } from "../interfaces/common.interface";
 
-const changePasswordService = async (payload: any): Promise<IOutput> => {
+const changePasswordService = async (payload: any): Promise<IResponse> => {
   return await PasswordDal.changePassword(payload);
 };
 
