@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { createUserSchema } from "../helpers/validation/user.validation";
+import { createUserSchema, updateUserSchema } from "../helpers/validation/user.validation";
 import { ResponseHelper } from "../helpers/response/response.helper";
 import * as userService from "../services/user.service";
 
@@ -50,7 +50,28 @@ class UsersController {
   };
 
   // update user by id
-  updateUser = async (req: Request, res: Response) => {};
+  updateUser = async (req: Request, res: Response) => {
+    const id: string = req.params.id;
+    
+    // update user schema validation
+    const parsed = updateUserSchema.safeParse(req.body);
+    if (parsed.success) {
+      // update user service
+      const user = await userService.updateUserService(id, parsed.data);
+      if (user.status) {
+        console.log(`Update user success: ${user.message}`);
+        res.json(ResponseHelper.successMessage(user.message, 200));
+      } else {
+        console.log(`Update user failed: ${user.message}`);
+        res.json(ResponseHelper.errorMessage(user.message, 400));
+      }
+    } else {
+      console.log(
+        `Update user failed, User data is invalid: ${parsed.error.errors}`
+      );
+      res.json(ResponseHelper.errorData(parsed.error.errors, 400));
+    }
+  };
 
   // delete user by id
   deleteUser = async (req: Request, res: Response) => {};

@@ -103,4 +103,40 @@ const getUserById = async (id: string): Promise<UserInterface.IUserOutput> => {
   }
 };
 
-export { createUser, getAllUsers, getUserById };
+const updateUser = async (
+  id: string,
+  payload: UserInterface.IUpdateUser
+): Promise<UserInterface.IUserOutput> => {
+  try {
+    const { name, email, role_id } = payload;
+
+    // check if user exists
+    const user = await prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (user) {
+      // update user
+      await prisma.user.update({
+        where: {
+          id: id,
+        },
+        data: {
+          name,
+          email,
+          role_id,
+        },
+      });
+      return { status: true, message: "User updated successfully" };
+    } else {
+      return { status: false, message: "User not found" };
+    }
+  } catch (error) {
+    console.log(`Update user failed: ${error}`);
+    return { status: false, message: "Update user failed" };
+  }
+};
+
+export { createUser, getAllUsers, getUserById, updateUser };

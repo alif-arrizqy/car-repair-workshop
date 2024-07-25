@@ -15,4 +15,16 @@ const getUserByIdService = async (id: string): Promise<UserInterface.IUserOutput
   return await UserDal.getUserById(id);
 };
 
-export { createUserService, getAllUsersService, getUserByIdService };
+const updateUserService = async (
+  id: string,
+  payload: UserInterface.IUpdateUser
+): Promise<UserInterface.IUserOutput> => {
+  return await UserDal.updateUser(id, payload);
+};
+
+export {
+  createUserService,
+  getAllUsersService,
+  getUserByIdService,
+  updateUserService,
+};
