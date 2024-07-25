@@ -14,10 +14,8 @@ id  | name  | email | password | role_id
 
 table jenis_kerusakan:
 id  | nama_kerusakan    | saran | manfaat
-1  | kerusakan1 | saran1 | manfaat1
-2  | kerusakan2 | saran2 | manfaat2
-3  | kerusakan3 | saran3 | manfaat3
-4  | kerusakan4 | saran4 | manfaat4
+1  | kerusakan1 | {"1": "saran1", "2": "saran1"} | {"1": "manfaat1", "2": "manfaat1"}
+2  | kerusakan2 | {"1": "saran2", "2": "saran2"} | {"1": "manfaat2", "2": "manfaat2"}
 
 table service:
 id  | id_service    | id_user | accepted | status_pekerjaan

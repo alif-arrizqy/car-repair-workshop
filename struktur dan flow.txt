@@ -17,8 +17,8 @@ role: HO (head office), Man Power, SA (service advisor)
 table jenis_kerusakan:
 id Int PK
 nama_kerusakan String
-saran String
-manfaat String
+saran Json
+manfaat Json
 
 
 table service:
