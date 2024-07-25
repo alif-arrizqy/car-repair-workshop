@@ -59,7 +59,10 @@ class PasswordController {
       const payload = { id: user.data.id };
 
       // generate token
-      const token = await this.generateToken(payload, "1h");
+      const token = await this.generateToken(
+        payload,
+        `${process.env.TOKEN_EXPIRES_RESET_PASSWORD}`
+      );
 
       // send email with token
       const response = {
