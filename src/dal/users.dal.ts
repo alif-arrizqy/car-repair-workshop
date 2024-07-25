@@ -1,5 +1,6 @@
 import { prisma } from "../app";
 import * as UserInterface from "../interfaces/user.interface";
+import { v7 as uuidv7 } from "uuid";
 
 // create a new user
 const createUser = async (
@@ -23,9 +24,13 @@ const createUser = async (
         timeCost: 3,
       });
 
+      // generate uuid
+      const id = uuidv7();
+
       // create user
       await prisma.user.create({
         data: {
+          id,
           name,
           email,
           password: hashPassword,
