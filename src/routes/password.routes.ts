@@ -12,6 +12,7 @@ class PasswdRouter {
   initializeRoutes() {
     this.router.post("/change-password", this.controller.changePassword);
     this.router.post("/request-reset-password", this.controller.requestResetPassword);
+    this.router.post("/reset-password", this.controller.resetPassword);
   }
 }
 
