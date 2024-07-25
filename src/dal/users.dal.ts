@@ -4,7 +4,7 @@ import { v7 as uuidv7 } from "uuid";
 
 // create a new user
 const createUser = async (
-  payload: UserInterface.IUser
+  payload: UserInterface.ICreateUser
 ): Promise<UserInterface.IUserOutput> => {
   try {
     const { name, email, password, role_id } = payload;
