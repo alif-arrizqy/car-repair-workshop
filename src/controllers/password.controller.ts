@@ -65,11 +65,40 @@ class PasswordController {
       const response = {
         email: user.data.email,
         token: token,
-      }
+      };
       res.json(ResponseHelper.successData(response, 200));
     } else {
       res.json(ResponseHelper.errorMessage("Email is not registered", 400));
     }
+  };
+
+  // reset password
+  resetPassword = async (req: Request, res: Response) => {
+    const { token, newPassword } = req.body;
+
+    // verify token
+    jwt.verify(
+      token,
+      process.env.TOKEN_SECRET,
+      async (err: any, decoded: any) => {
+        if (err) {
+          console.log(`Reset password failed: ${err.message}`);
+          res.json(ResponseHelper.errorMessage("Token is invalid", 400));
+        } else {
+          const payload = { id: decoded.id, newPassword };
+          
+          // update user password
+          const updated = await PasswordService.changePasswordService(payload);
+          if (updated.status) {
+            console.log(`Reset password success: ${updated.message}`);
+            res.json(ResponseHelper.successMessage(updated.message, 200));
+          } else {
+            console.log(`Reset password failed: ${updated.message}`);
+            res.json(ResponseHelper.errorMessage(updated.message, 400));
+          }
+        }
+      }
+    );
   };
 }
 
