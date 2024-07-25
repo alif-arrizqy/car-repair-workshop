@@ -7,13 +7,13 @@ import { changePasswordSchema } from "../helpers/validation/password.validation"
 
 class PasswordController {
   // generate token
-  generateToken = async (payload: any, expiresIn: string) => {
+  static generateToken = async (payload: any, expiresIn: string) => {
     const secretKey = process.env.TOKEN_SECRET;
     return jwt.sign(payload, secretKey, { expiresIn });
   };
 
   // change password
-  changePassword = async (req: Request, res: Response) => {
+  static changePassword = async (req: Request, res: Response) => {
     const parsed = changePasswordSchema.safeParse(req.body);
     if (parsed.success) {
       const { id, oldPassword, newPassword } = parsed.data;
@@ -50,7 +50,7 @@ class PasswordController {
   };
 
   // request reset password
-  requestResetPassword = async (req: Request, res: Response) => {
+  static requestResetPassword = async (req: Request, res: Response) => {
     const { email } = req.body;
 
     // check if email is registered
@@ -59,7 +59,7 @@ class PasswordController {
       const payload = { id: user.data.id };
 
       // generate token
-      const token = await this.generateToken(
+      const token = await PasswordController.generateToken(
         payload,
         `${process.env.TOKEN_EXPIRES_RESET_PASSWORD}`
       );
@@ -76,7 +76,7 @@ class PasswordController {
   };
 
   // reset password
-  resetPassword = async (req: Request, res: Response) => {
+  static resetPassword = async (req: Request, res: Response) => {
     const { token, newPassword } = req.body;
 
     // verify token
