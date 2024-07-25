@@ -11,9 +11,7 @@ const getAllUsersService = async (): Promise<any[]> => {
   return await UserDal.getAllUsers();
 };
 
-const getUserByIdService = async (
-  id: number
-): Promise<UserInterface.IUserOutput> => {
+const getUserByIdService = async (id: string): Promise<UserInterface.IUserOutput> => {
   return await UserDal.getUserById(id);
 };
 

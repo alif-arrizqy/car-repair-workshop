@@ -72,7 +72,7 @@ const getAllUsers = async (): Promise<any[]> => {
   }
 };
 
-const getUserById = async (id: number): Promise<UserInterface.IUserOutput> => {
+const getUserById = async (id: string): Promise<UserInterface.IUserOutput> => {
   try {
     const user = await prisma.user.findUnique({
       where: {

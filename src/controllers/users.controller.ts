@@ -38,7 +38,7 @@ class UsersController {
 
   // get user by id
   getUserById = async (req: Request, res: Response) => {
-    const id = parseInt(req.params.id);
+    const id: string = req.params.id;
 
     // get user by id service
     const user = await userService.getUserByIdService(id);
