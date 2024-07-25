@@ -11,10 +11,10 @@ interface IUpdateUser {
   role_id?: number;
 }
 
-interface IUserOutput {
+interface IOutput {
   status: boolean;
   message: string;
   data?: any;
 }
 
-export type { ICreateUser, IUpdateUser, IUserOutput };
+export type { ICreateUser, IUpdateUser, IOutput };

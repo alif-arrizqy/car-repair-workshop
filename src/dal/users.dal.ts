@@ -5,7 +5,7 @@ import { v7 as uuidv7 } from "uuid";
 // create a new user
 const createUser = async (
   payload: UserInterface.ICreateUser
-): Promise<UserInterface.IUserOutput> => {
+): Promise<UserInterface.IOutput> => {
   try {
     const { name, email, password, role_id } = payload;
 
@@ -72,7 +72,7 @@ const getAllUsers = async (): Promise<any[]> => {
   }
 };
 
-const getUserById = async (id: string): Promise<UserInterface.IUserOutput> => {
+const getUserById = async (id: string): Promise<UserInterface.IOutput> => {
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -106,7 +106,7 @@ const getUserById = async (id: string): Promise<UserInterface.IUserOutput> => {
 const updateUser = async (
   id: string,
   payload: UserInterface.IUpdateUser
-): Promise<UserInterface.IUserOutput> => {
+): Promise<UserInterface.IOutput> => {
   try {
     const { name, email, role_id } = payload;
 
@@ -139,7 +139,7 @@ const updateUser = async (
   }
 };
 
-const deleteUser = async (id: string): Promise<UserInterface.IUserOutput> => {
+const deleteUser = async (id: string): Promise<UserInterface.IOutput> => {
   try {
     // check if user exists
     const user = await prisma.user.findUnique({
