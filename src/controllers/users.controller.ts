@@ -74,7 +74,19 @@ class UsersController {
   };
 
   // delete user by id
-  deleteUser = async (req: Request, res: Response) => {};
+  deleteUser = async (req: Request, res: Response) => {
+    const id: string = req.params.id;
+
+    // delete user service
+    const user = await userService.deleteUserService(id);
+    if (user.status) {
+      console.log(`Delete user success: ${user.message}`);
+      res.json(ResponseHelper.successMessage(user.message, 200));
+    } else {
+      console.log(`Delete user failed: ${user.message}`);
+      res.json(ResponseHelper.errorMessage(user.message, 400));
+    }
+  };
 }
 
 export default UsersController;

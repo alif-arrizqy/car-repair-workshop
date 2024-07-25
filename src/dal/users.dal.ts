@@ -139,4 +139,30 @@ const updateUser = async (
   }
 };
 
-export { createUser, getAllUsers, getUserById, updateUser };
+const deleteUser = async (id: string): Promise<UserInterface.IUserOutput> => {
+  try {
+    // check if user exists
+    const user = await prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (user) {
+      // delete user
+      await prisma.user.delete({
+        where: {
+          id: id,
+        },
+      });
+      return { status: true, message: "User deleted successfully" };
+    } else {
+      return { status: false, message: "User not found" };
+    }
+  } catch (error) {
+    console.log(`Delete user failed: ${error}`);
+    return { status: false, message: "Delete user failed" };
+  }
+}
+
+export { createUser, getAllUsers, getUserById, updateUser, deleteUser };

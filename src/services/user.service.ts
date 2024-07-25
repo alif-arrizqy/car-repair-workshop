@@ -24,9 +24,14 @@ const updateUserService = async (
   return await UserDal.updateUser(id, payload);
 };
 
+const deleteUserService = async (id: string): Promise<UserInterface.IUserOutput> => {
+  return await UserDal.deleteUser(id);
+}
+
 export {
   createUserService,
   getAllUsersService,
   getUserByIdService,
   updateUserService,
+  deleteUserService,
 };
