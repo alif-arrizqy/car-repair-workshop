@@ -86,7 +86,7 @@ class PasswordController {
       async (err: any, decoded: any) => {
         if (err) {
           console.log(`Reset password failed: ${err.message}`);
-          res.json(ResponseHelper.errorMessage("Token is invalid", 400));
+          res.json(ResponseHelper.errorMessage(err.message, 400));
         } else {
           const payload = { id: decoded.id, newPassword };
           
