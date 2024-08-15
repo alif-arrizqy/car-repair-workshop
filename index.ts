@@ -1,5 +1,6 @@
 import express, { type Application } from "express";
 import { Server, prisma } from "./src/app";
+import { setupSwagger } from "./swaggerConfig";
 import dotenv from "dotenv";
 
 const env = dotenv.config();
@@ -15,8 +16,11 @@ if (env.parsed?.NODE_ENV === "development") {
   PORT = process.env.PRODUCTION_PORT ? parseInt(process.env.PRODUCTION_PORT) : 3100;
 }
 
-const app: Application = express();
+const app: express.Express = express();
 const server: Server = new Server(app);
+
+// Setup Swagger
+setupSwagger(app);
 
 // check connection prisma
 prisma.$connect()
