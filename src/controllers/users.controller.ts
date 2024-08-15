@@ -4,6 +4,25 @@ import { ResponseHelper } from "../helpers/response/response.helper";
 import * as userService from "../services/user.service";
 
 class UsersController {
+  /**
+   * @swagger
+   * /api/users:
+   *   post:
+   *     summary: Create a new user
+   *     tags: [Users]
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/User'
+   *     responses:
+   *       201:
+   *         description: User created successfully
+   *       400:
+   *         description: Invalid input
+   */
+
   // create a new user
   static createUser = async (req: Request, res: Response) => {
     // create user schema validation
@@ -52,7 +71,7 @@ class UsersController {
   // update user by id
   static updateUser = async (req: Request, res: Response) => {
     const id: string = req.params.id;
-    
+
     // update user schema validation
     const parsed = updateUserSchema.safeParse(req.body);
     if (parsed.success) {
