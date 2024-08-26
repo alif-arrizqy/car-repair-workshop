@@ -45,6 +45,18 @@ class UsersController {
     }
   };
 
+  /**
+   * @swagger
+   * /api/users:
+   *  get:
+   *    summary: Get all users
+   *    tags: [Users]
+   *    responses:
+   *      200:
+   *        description: Get all users successfully
+   *      400:
+   *        description: Get all users failed
+   */
   // get all users
   static getAllUsers = async (req: Request, res: Response) => {
     const users = await userService.getAllUsersService();
@@ -55,6 +67,27 @@ class UsersController {
     }
   };
 
+  /**
+   * @swagger
+   * /api/users/{id}:
+   *   get:
+   *     summary: Get user by id
+   *     tags: [Users]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         description: User ID
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: User found
+   *       400:
+   *         description: Invalid ID supplied
+   *       404:
+   *         description: User not found
+  */
   // get user by id
   static getUserById = async (req: Request, res: Response) => {
     const id: string = req.params.id;
