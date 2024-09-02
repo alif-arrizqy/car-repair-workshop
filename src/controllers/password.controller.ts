@@ -71,7 +71,7 @@ class PasswordController {
       };
       res.json(ResponseHelper.successData(response, 200));
     } else {
-      res.json(ResponseHelper.errorMessage("Email is not registered", 400));
+      res.status(400).json(ResponseHelper.errorMessage("Email is not registered", 400));
     }
   };
 
