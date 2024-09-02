@@ -4,6 +4,7 @@ import { Express } from "express";
 import userSchemas from "./user.swagger";
 import roleSchemas from "./role.swagger";
 import responseSchemas from "./response.swagger";
+import authSchemas from "./auth.swagger";
 
 const options = {
   definition: {
@@ -18,6 +19,7 @@ const options = {
         ...userSchemas,
         ...roleSchemas,
         ...responseSchemas,
+        ...authSchemas,
       },
     },
   },
