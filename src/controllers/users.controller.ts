@@ -39,7 +39,7 @@ class UsersController {
       const user = await userService.createUserService(parsed.data);
       if (user.status) {
         console.log(`Create user success: ${user.message}`);
-        res.json(ResponseHelper.successMessage(user.message, 201));
+        res.status(201).json(ResponseHelper.successMessage(user.message, 201));
       } else {
         console.log(`Create user failed: ${user.message}`);
         res.json(ResponseHelper.errorMessage(user.message, 400));
@@ -79,7 +79,7 @@ class UsersController {
     if (users.length > 0) {
       res.json(ResponseHelper.successData(users, 200));
     } else {
-      res.json(ResponseHelper.errorMessage("Get all users failed", 400));
+      res.status(400).json(ResponseHelper.errorMessage("Get all users failed", 400));
     }
   };
 
@@ -122,7 +122,7 @@ class UsersController {
     if (user.status) {
       res.json(ResponseHelper.successData(user.data, 200));
     } else {
-      res.json(ResponseHelper.errorMessage(user.message, 400));
+      res.status(400).json(ResponseHelper.errorMessage(user.message, 400));
     }
   };
 
@@ -170,18 +170,21 @@ class UsersController {
     const parsed = updateUserSchema.safeParse(req.body);
     if (parsed.success) {
       const user = await userService.updateUserService(id, parsed.data);
-      if (user.status) {
+      if (user.code === 200) {
         console.log(`Update user success: ${user.message}`);
         res.json(ResponseHelper.successMessage(user.message, 200));
+      } else if (user.code === 404) {
+        console.log(`Update user failed: ${user.message}`);
+        res.status(404).json(ResponseHelper.errorMessage(user.message, 400));
       } else {
         console.log(`Update user failed: ${user.message}`);
-        res.json(ResponseHelper.errorMessage(user.message, 400));
+        res.status(400).json(ResponseHelper.errorMessage(user.message, 400));
       }
     } else {
       console.log(
         `Update user failed, User data is invalid: ${parsed.error.errors}`
       );
-      res.json(ResponseHelper.errorData(parsed.error.errors, 400));
+      res.status(400).json(ResponseHelper.errorData(parsed.error.errors, 400));
     }
   };
 
@@ -221,12 +224,15 @@ class UsersController {
   static deleteUser = async (req: Request, res: Response) => {
     const id: string = req.params.id;
     const user = await userService.deleteUserService(id);
-    if (user.status) {
+    if (user.code === 200) {
       console.log(`Delete user success: ${user.message}`);
       res.json(ResponseHelper.successMessage(user.message, 200));
+    } else if (user.code === 400) {
+      console.log(`Delete user failed: ${user.message}`);
+      res.status(400).json(ResponseHelper.errorMessage(user.message, 400));
     } else {
       console.log(`Delete user failed: ${user.message}`);
-      res.json(ResponseHelper.errorMessage(user.message, 400));
+      res.status(404).json(ResponseHelper.errorMessage(user.message, 404));
     }
   };
 }
