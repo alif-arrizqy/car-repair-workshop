@@ -133,7 +133,17 @@ const updateUser = async (
       },
     });
 
+    // check if email exist
+    const emailExist = await prisma.user.findFirst({
+      where: {
+        email: email,
+      },
+    });
+
     if (user) {
+      if (emailExist && emailExist.id !== id) {
+        return { code: 400, message: "Email has been registered" };
+      }
       // update user
       await prisma.user.update({
         where: {
@@ -145,13 +155,13 @@ const updateUser = async (
           role_id,
         },
       });
-      return { status: true, message: "User updated successfully" };
+      return { code: 200, message: "User updated successfully" };
     } else {
-      return { status: false, message: "User not found" };
+      return { code: 404, message: "User not found" };
     }
   } catch (error) {
     console.log(`Update user failed: ${error}`);
-    return { status: false, message: "Update user failed" };
+    return { code: 400, message: "Update user failed" };
   }
 };
 
@@ -171,13 +181,13 @@ const deleteUser = async (id: string): Promise<IResponse> => {
           id: id,
         },
       });
-      return { status: true, message: "User deleted successfully" };
+      return { code: 200, message: "User deleted successfully" };
     } else {
-      return { status: false, message: "User not found" };
+      return { code: 404, message: "User not found" };
     }
   } catch (error) {
     console.log(`Delete user failed: ${error}`);
-    return { status: false, message: "Delete user failed" };
+    return { code: 400, message: "Delete user failed" };
   }
 }
 
