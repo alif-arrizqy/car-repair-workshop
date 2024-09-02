@@ -106,16 +106,20 @@ const getUserById = async (id: string): Promise<IResponse> => {
 
 const getUserByEmail = async (email: string): Promise<IResponse> => {
   try {
-    const user = await prisma.user.findFirst({
+    const isExist = await prisma.user.findFirst({
       where: {
         email: email,
       },
-      select: { email: true, id: true },
     });
-    return { status: true, message: "User is found", data: user };
+
+    if (isExist) {
+      return { status: true, message: "Email is found", data: isExist };
+    } else {
+      return { status: false, message: "Email is not found" };
+    }
   } catch (error) {
     console.log(`Get user by email failed: ${error}`);
-    return { status: false, message: "Email is not found" };
+    return { status: false, message: "Failed to find Users" };
   }
 };
 
