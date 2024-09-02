@@ -76,7 +76,9 @@ const updateRole = async (id: number, name: string): Promise<IResponse> => {
     });
 
     if (!role) {
-      return { status: false, message: "Role is not found" };
+      return { code: 404, message: "Role is not found" };
+    } else if (roleNameExist) {
+      return { code: 400, message: "Role name already exists" };
     } else {
       await prisma.role.update({
         where: {
@@ -86,11 +88,11 @@ const updateRole = async (id: number, name: string): Promise<IResponse> => {
           name,
         },
       });
-      return { status: true, message: "Role updated successfully" };
+      return { code: 200, message: "Role updated successfully" };
     }
   } catch (error) {
     console.log(`Update role failed: ${error}`);
-    return { status: false, message: "Update role failed" };
+    return { code: 400, message: "Update role failed" };
   }
 };
 
