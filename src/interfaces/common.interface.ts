@@ -1,5 +1,6 @@
 export interface IResponse {
-  status: boolean;
+  status?: boolean;
+  code?: number;
   message: string;
   data?: any;
 }
