@@ -1,5 +1,8 @@
 import type { Request, Response } from "express";
-import { createUserSchema, updateUserSchema } from "../helpers/validation/user.validation";
+import {
+  createUserSchema,
+  updateUserSchema,
+} from "../helpers/validation/user.validation";
 import { ResponseHelper } from "../helpers/response/response.helper";
 import * as userService from "../services/user.service";
 
@@ -19,16 +22,20 @@ class UsersController {
    *     responses:
    *       201:
    *         description: User created successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/SuccessMessage'
    *       400:
    *         description: Invalid input
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorMessage'
    */
-
-  // create a new user
   static createUser = async (req: Request, res: Response) => {
-    // create user schema validation
     const parsed = createUserSchema.safeParse(req.body);
     if (parsed.success) {
-      // create user service
       const user = await userService.createUserService(parsed.data);
       if (user.status) {
         console.log(`Create user success: ${user.message}`);
@@ -48,16 +55,25 @@ class UsersController {
   /**
    * @swagger
    * /api/users:
-   *  get:
-   *    summary: Get all users
-   *    tags: [Users]
-   *    responses:
-   *      200:
-   *        description: Get all users successfully
-   *      400:
-   *        description: Get all users failed
+   *   get:
+   *     summary: Get all users
+   *     tags: [Users]
+   *     responses:
+   *       200:
+   *         description: Get all users successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 $ref: '#/components/schemas/SuccessDataArray'
+   *       400:
+   *         description: Get all users failed
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorMessage'
    */
-  // get all users
   static getAllUsers = async (req: Request, res: Response) => {
     const users = await userService.getAllUsersService();
     if (users.length > 0) {
@@ -83,16 +99,25 @@ class UsersController {
    *     responses:
    *       200:
    *         description: User found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/SuccessDataObject'
    *       400:
    *         description: Invalid ID supplied
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorMessage'
    *       404:
    *         description: User not found
-  */
-  // get user by id
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorMessage'
+   */
   static getUserById = async (req: Request, res: Response) => {
     const id: string = req.params.id;
-
-    // get user by id service
     const user = await userService.getUserByIdService(id);
     if (user.status) {
       res.json(ResponseHelper.successData(user.data, 200));
@@ -101,14 +126,49 @@ class UsersController {
     }
   };
 
-  // update user by id
+  /**
+   * @swagger
+   * /api/users/{id}:
+   *   put:
+   *     summary: Update user by id
+   *     tags: [Users]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         description: User ID
+   *         schema:
+   *           type: string
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/UpdateUser'
+   *     responses:
+   *       200:
+   *         description: User updated successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/SuccessMessage'
+   *       400:
+   *         description: Invalid ID supplied
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorMessage'
+   *       404:
+   *         description: User not found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorMessage'
+   */
   static updateUser = async (req: Request, res: Response) => {
     const id: string = req.params.id;
-
-    // update user schema validation
     const parsed = updateUserSchema.safeParse(req.body);
     if (parsed.success) {
-      // update user service
       const user = await userService.updateUserService(id, parsed.data);
       if (user.status) {
         console.log(`Update user success: ${user.message}`);
@@ -125,11 +185,41 @@ class UsersController {
     }
   };
 
-  // delete user by id
+  /**
+   * @swagger
+   * /api/users/{id}:
+   *   delete:
+   *     summary: Delete user by id
+   *     tags: [Users]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         description: User ID
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: User deleted successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/SuccessMessage'
+   *       400:
+   *         description: Invalid ID supplied
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorMessage'
+   *       404:
+   *         description: User not found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorMessage'
+   */
   static deleteUser = async (req: Request, res: Response) => {
     const id: string = req.params.id;
-
-    // delete user service
     const user = await userService.deleteUserService(id);
     if (user.status) {
       console.log(`Delete user success: ${user.message}`);
