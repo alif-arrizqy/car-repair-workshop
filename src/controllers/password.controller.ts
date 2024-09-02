@@ -49,6 +49,33 @@ class PasswordController {
     }
   };
 
+  /**
+   *
+   * @swagger
+   * /api/auth/request-reset-password:
+   *   post:
+   *     summary: Request reset password
+   *     tags: [Auth]
+   *     requestBody:
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *             $ref: '#/components/schemas/RequestResetPassword'
+   *     responses:
+   *       200:
+   *         description: Request reset password success
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/SuccessDataObject'
+   *       400:
+   *         description: Bad Request
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorMessage'
+   */
   // request reset password
   static requestResetPassword = async (req: Request, res: Response) => {
     const { email } = req.body;
