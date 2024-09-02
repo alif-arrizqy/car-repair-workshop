@@ -1,6 +1,6 @@
 import express, { type Application } from "express";
 import { Server, prisma } from "./src/app";
-import { setupSwagger } from "./swaggerConfig";
+import { setupSwagger } from "./swaggers"
 import dotenv from "dotenv";
 
 const env = dotenv.config();
