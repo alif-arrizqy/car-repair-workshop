@@ -3,6 +3,19 @@ import type { IResponse } from "../interfaces/common.interface";
 
 const createRole = async (name: string): Promise<IResponse> => {
   try {
+    // check if role is exist
+    // lowercase the name
+    name = name.toLowerCase();
+    const isExist = await prisma.role.findFirst({
+      where: {
+        name,
+      },
+    });
+
+    if (isExist) {
+      return { status: false, message: "Role already exists" };
+    }
+
     await prisma.role.create({
       data: {
         name,
@@ -51,6 +64,14 @@ const updateRole = async (id: number, name: string): Promise<IResponse> => {
     const role = await prisma.role.findUnique({
       where: {
         id,
+      },
+    });
+
+    // check role name is exist
+    const checkName: string = name.toLowerCase();
+    const roleNameExist = await prisma.role.findFirst({
+      where: {
+        name: checkName,
       },
     });
 
