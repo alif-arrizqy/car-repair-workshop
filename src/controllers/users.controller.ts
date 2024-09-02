@@ -18,7 +18,7 @@ class UsersController {
    *       content:
    *         application/json:
    *           schema:
-   *             $ref: '#/components/schemas/User'
+   *             $ref: '#/components/schemas/CreateUser'
    *     responses:
    *       201:
    *         description: User created successfully
@@ -27,7 +27,7 @@ class UsersController {
    *             schema:
    *               $ref: '#/components/schemas/SuccessMessage'
    *       400:
-   *         description: Invalid input
+   *         description: Bad Request
    *         content:
    *           application/json:
    *             schema:
@@ -153,13 +153,13 @@ class UsersController {
    *             schema:
    *               $ref: '#/components/schemas/SuccessMessage'
    *       400:
-   *         description: Invalid ID supplied
+   *         description: Bad Request
    *         content:
    *           application/json:
    *             schema:
    *               $ref: '#/components/schemas/ErrorMessage'
    *       404:
-   *         description: User not found
+   *         description: Not Found
    *         content:
    *           application/json:
    *             schema:
@@ -206,13 +206,13 @@ class UsersController {
    *             schema:
    *               $ref: '#/components/schemas/SuccessMessage'
    *       400:
-   *         description: Invalid ID supplied
+   *         description: Bad Request
    *         content:
    *           application/json:
    *             schema:
    *               $ref: '#/components/schemas/ErrorMessage'
    *       404:
-   *         description: User not found
+   *         description: Not Found
    *         content:
    *           application/json:
    *             schema:
