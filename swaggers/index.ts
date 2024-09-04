@@ -6,6 +6,7 @@ import roleSchemas from "./role.swagger";
 import responseSchemas from "./response.swagger";
 import authSchemas from "./auth.swagger";
 import JenisKerusakanSchemas from "./jenisKerusakan.swagger";
+import serviceSchemas from "./service.swagger";
 
 const options = {
   definition: {
@@ -22,6 +23,7 @@ const options = {
         ...responseSchemas,
         ...authSchemas,
         ...JenisKerusakanSchemas,
+        ...serviceSchemas,
       },
     },
   },
