@@ -16,10 +16,9 @@ const AuthScehams = {
         type: "string",
         example: "secret-token",
       },
-      email: {
+      newPassword: {
         type: "string",
-        format: "email",
-        example: "john.doe@email.com",
+        example: "password",
       },
     },
   },
