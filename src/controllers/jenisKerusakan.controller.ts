@@ -22,7 +22,7 @@ class JenisKerusakanController {
    *         content:
    *           application/json:
    *             schema:
-   *               $ref: '#/components/schemas/SuccessMessage'
+   *               $ref: '#/components/schemas/SuccessCreate'
    *       400:
    *         description: Bad Request
    *         content:
@@ -33,9 +33,12 @@ class JenisKerusakanController {
   static createJenisKerusakan = async (req: Request, res: Response) => {
     const parsed = jenisKerusakanSchema.safeParse(req.body);
     if (parsed.success) {
-      const jenisKerusakan = await jenisKerusakanService.createJenisKerusakanService(parsed.data);
+      const jenisKerusakan =
+        await jenisKerusakanService.createJenisKerusakanService(parsed.data);
       if (jenisKerusakan.status) {
-        console.log(`Create jenis kerusakan success: ${jenisKerusakan.message}`);
+        console.log(
+          `Create jenis kerusakan success: ${jenisKerusakan.message}`
+        );
         res
           .status(201)
           .json(ResponseHelper.successMessage(jenisKerusakan.message, 201));
@@ -46,7 +49,9 @@ class JenisKerusakanController {
           .json(ResponseHelper.errorMessage(jenisKerusakan.message, 400));
       }
     } else {
-      console.log(`Create jenis kerusakan failed, Jenis kerusakan data is invalid: ${parsed.error.errors}`);
+      console.log(
+        `Create jenis kerusakan failed, Jenis kerusakan data is invalid: ${parsed.error.errors}`
+      );
       res.status(400).json(ResponseHelper.errorData(parsed.error.errors, 400));
     }
   };
@@ -79,9 +84,11 @@ class JenisKerusakanController {
       res.json(ResponseHelper.successData(jenisKerusakan, 200));
     } else {
       console.log("Get all jenis kerusakan failed");
-      res.status(400).json(
-        ResponseHelper.errorMessage("Get all jenis kerusakan failed", 400)
-      );
+      res
+        .status(400)
+        .json(
+          ResponseHelper.errorMessage("Get all jenis kerusakan failed", 400)
+        );
     }
   };
 
@@ -120,20 +127,30 @@ class JenisKerusakanController {
    */
   static getJenisKerusakanById = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
-    const jenisKerusakan = await jenisKerusakanService.getJenisKerusakanByIdService(id);
+    const jenisKerusakan =
+      await jenisKerusakanService.getJenisKerusakanByIdService(id);
     if (jenisKerusakan.code === 200) {
       console.log("Get jenis kerusakan by id success");
       res.json(ResponseHelper.successData(jenisKerusakan.data, 200));
     } else if (jenisKerusakan.code === 404) {
-      console.log("Get jenis kerusakan by id failed, Data Jenis Kerusakan not found");
-      res.status(404).json(
-        ResponseHelper.errorMessage("Data Jenis Kerusakan not found", 404)
+      console.log(
+        "Get jenis kerusakan by id failed, Data Jenis Kerusakan not found"
       );
+      res
+        .status(404)
+        .json(
+          ResponseHelper.errorMessage("Data Jenis Kerusakan not found", 404)
+        );
     } else {
       console.log("Get jenis kerusakan by id failed");
-      res.status(400).json(
-        ResponseHelper.errorMessage("Failed to retrieve Jenis Kerusakan Data", 400)
-      );
+      res
+        .status(400)
+        .json(
+          ResponseHelper.errorMessage(
+            "Failed to retrieve Jenis Kerusakan Data",
+            400
+          )
+        );
     }
   };
 
@@ -180,22 +197,38 @@ class JenisKerusakanController {
     const id = parseInt(req.params.id);
     const parsed = jenisKerusakanSchema.safeParse(req.body);
     if (parsed.success) {
-      const jenisKerusakan = await jenisKerusakanService.updateJenisKerusakanService(id, parsed.data);
+      const jenisKerusakan =
+        await jenisKerusakanService.updateJenisKerusakanService(
+          id,
+          parsed.data
+        );
       if (jenisKerusakan.code === 200) {
-        console.log(`Update jenis kerusakan by id success: ${jenisKerusakan.message}`);
+        console.log(
+          `Update jenis kerusakan by id success: ${jenisKerusakan.message}`
+        );
         res.json(ResponseHelper.successMessage(jenisKerusakan.message, 200));
       } else if (jenisKerusakan.code === 404) {
-        console.log(`Update jenis kerusakan by id failed: ${jenisKerusakan.message}`);
-        res.status(404).json(ResponseHelper.errorMessage(jenisKerusakan.message, 404));
+        console.log(
+          `Update jenis kerusakan by id failed: ${jenisKerusakan.message}`
+        );
+        res
+          .status(404)
+          .json(ResponseHelper.errorMessage(jenisKerusakan.message, 404));
       } else {
-        console.log(`Update jenis kerusakan by id failed: ${jenisKerusakan.message}`);
-        res.status(400).json(ResponseHelper.errorMessage(jenisKerusakan.message, 400));
+        console.log(
+          `Update jenis kerusakan by id failed: ${jenisKerusakan.message}`
+        );
+        res
+          .status(400)
+          .json(ResponseHelper.errorMessage(jenisKerusakan.message, 400));
       }
     } else {
-      console.log(`Update jenis kerusakan by id failed, Jenis kerusakan data is invalid: ${parsed.error.errors}`);
+      console.log(
+        `Update jenis kerusakan by id failed, Jenis kerusakan data is invalid: ${parsed.error.errors}`
+      );
       res.status(400).json(ResponseHelper.errorData(parsed.error.errors, 400));
     }
-  }
+  };
 
   /**
    * @swagger
@@ -226,18 +259,29 @@ class JenisKerusakanController {
    */
   static deleteJenisKerusakan = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
-    const jenisKerusakan = await jenisKerusakanService.deleteJenisKerusakanService(id);
+    const jenisKerusakan =
+      await jenisKerusakanService.deleteJenisKerusakanService(id);
     if (jenisKerusakan.code === 200) {
-      console.log(`Delete jenis kerusakan by id success: ${jenisKerusakan.message}`);
+      console.log(
+        `Delete jenis kerusakan by id success: ${jenisKerusakan.message}`
+      );
       res.json(ResponseHelper.successMessage(jenisKerusakan.message, 200));
     } else if (jenisKerusakan.code === 404) {
-      console.log(`Delete jenis kerusakan by id failed: ${jenisKerusakan.message}`);
-      res.status(404).json(ResponseHelper.errorMessage(jenisKerusakan.message, 404));
+      console.log(
+        `Delete jenis kerusakan by id failed: ${jenisKerusakan.message}`
+      );
+      res
+        .status(404)
+        .json(ResponseHelper.errorMessage(jenisKerusakan.message, 404));
     } else {
-      console.log(`Delete jenis kerusakan by id failed: ${jenisKerusakan.message}`);
-      res.status(400).json(ResponseHelper.errorMessage(jenisKerusakan.message, 400));
+      console.log(
+        `Delete jenis kerusakan by id failed: ${jenisKerusakan.message}`
+      );
+      res
+        .status(400)
+        .json(ResponseHelper.errorMessage(jenisKerusakan.message, 400));
     }
-  }
+  };
 }
 
 export default JenisKerusakanController;

@@ -25,7 +25,7 @@ class UsersController {
    *         content:
    *           application/json:
    *             schema:
-   *               $ref: '#/components/schemas/SuccessMessage'
+   *               $ref: '#/components/schemas/SuccessCreate'
    *       400:
    *         description: Bad Request
    *         content:
@@ -79,7 +79,9 @@ class UsersController {
     if (users.length > 0) {
       res.json(ResponseHelper.successData(users, 200));
     } else {
-      res.status(400).json(ResponseHelper.errorMessage("Get all users failed", 400));
+      res
+        .status(400)
+        .json(ResponseHelper.errorMessage("Get all users failed", 400));
     }
   };
 

@@ -21,7 +21,7 @@ class RoleController {
    *         content:
    *           application/json:
    *             schema:
-   *               $ref: '#/components/schemas/SuccessMessage'
+   *               $ref: '#/components/schemas/SuccessCreate'
    *       400:
    *         description: Bad Request
    *         content:
@@ -68,7 +68,9 @@ class RoleController {
     if (roles.length > 0) {
       res.json(ResponseHelper.successData(roles, 200));
     } else {
-      res.status(400).json(ResponseHelper.errorMessage("Get all roles failed", 400));
+      res
+        .status(400)
+        .json(ResponseHelper.errorMessage("Get all roles failed", 400));
     }
   }
 
@@ -116,7 +118,9 @@ class RoleController {
       }
     } catch (error) {
       console.log(`Get role by id failed: ${error}`);
-      res.status(400).json(ResponseHelper.errorMessage("Get role by id failed", 400));
+      res
+        .status(400)
+        .json(ResponseHelper.errorMessage("Get role by id failed", 400));
     }
   }
 
@@ -177,7 +181,9 @@ class RoleController {
       }
     } catch (error) {
       console.log(`Update role failed: ${error}`);
-      res.status(400).json(ResponseHelper.errorMessage("Update role failed", 400));
+      res
+        .status(400)
+        .json(ResponseHelper.errorMessage("Update role failed", 400));
     }
   }
 
