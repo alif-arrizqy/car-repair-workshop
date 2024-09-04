@@ -12,6 +12,32 @@ class PasswordController {
     return jwt.sign(payload, secretKey, { expiresIn });
   };
 
+  /**
+   * @swagger
+   * /api/auth/change-password:
+   *   post:
+   *     summary: Change password
+   *     tags: [Auth]
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/ChangePassword'
+   *     responses:
+   *       200:
+   *         description: Change password success
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/SuccessMessage'
+   *       400:
+   *         description: Bad Request
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorMessage'
+   */
   // change password
   static changePassword = async (req: Request, res: Response) => {
     const parsed = changePasswordSchema.safeParse(req.body);
@@ -102,6 +128,32 @@ class PasswordController {
     }
   };
 
+  /**
+   * @swagger
+   * /api/auth/reset-password:
+   *   post:
+   *     summary: Reset Password
+   *     tags: [Auth]
+   *     requestBody:
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *             $ref: '#/components/schemas/ResetPassword'
+   *     responses:
+   *       200:
+   *         description: Reset Password success
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/SuccessDataObject'
+   *       400:
+   *         description: Bad Request
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorMessage'   
+   */
   // reset password
   static resetPassword = async (req: Request, res: Response) => {
     const { token, newPassword } = req.body;
